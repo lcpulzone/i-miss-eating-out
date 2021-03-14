@@ -1,63 +1,105 @@
 class Restaurant
   attr_reader :opening_time,
-              :name,
-              # :close_time
-              :capilalized
+                   :name,
+                   :dishes
 
-  def initialize(open, name)
-    @opening_time = open
+  def initialize(opening_time, name)
+    @opening_time = opening_time
     @name = name
-    @dish = []
-    # @close_time = ""
-    @lunch = true
-    @capilalized = []
+    @dishes = []
   end
 
-  def dishes
-    @dish
+  def closing_time(hours)
+    (opening_time.to_i + hours).to_s + ":00"
   end
-  #
-  # def closing_time(length)
-  #   @closing_time == @opening_time + length
-  #   @closing_time
-  # end
 
-  # def closing_time(length)
-  #   @open_time.each do |length|
-  #     @close_time << @open_time + length
-  #   end
-  #   @close_time
-  # end
-
-  # def closing_time(length)
-  #   @close_time = "#{open_time.to_i + length.to_f}"
-  # end
-
-  # def closing_time(length)
-  #
-  # end
-
-#  I had to move on from the time test, the math portion really trips me up and I have spent about 1 to 1 1/2 hours trying to get this to work in various forms. Above are just a few of the things I've tried, I have a distinct feeling I am over complicating the situation. My apologies.
-
-
-  def add_dish(dish)
-    @dish << dish
+  def add_dish(food_dish)
+    @dishes << food_dish
   end
 
   def open_for_lunch?
-    if @opening_time >= "12:00"
-      @lunch = false
-    end
-    @lunch
+    return true if @opening_time.to_i < 12
+  else
+    false
   end
 
-  # def menu_dish_names
-  #   @capilalized << @dish.upcase
-  # end
+  def menu_dish_names
+    menu_dishes = @dishes.map do |dish|
+      dish.upcase
+    end
+    menu_dishes
+  end
 
-  # def menu_dish_names
-  #   @capilalized << add_dish.upcase
-  # end
+  def announce_closing_time(hours)
+    if closing_time(hours).to_i < 12
+      "#{@name} will be closing at #{closing_time(hours)}AM"
+    else
+      "#{@name} will be closing at #{pm_closing_time(hours)}"
+    end
+  end
 
-# I again ran into an issue here, I feel 'okay' about the last test I created but was unsure if I should choose just one restaurant or both.  That's why that test looks so long.  I understand that using .upcase if for a string and I have an array of strings which is one of my many errors.  Overall, I am having some trouble with creating the methods, I get really confused about what I can and can't do and then mix them up.  Thank you for taking time to provide me feedback, I look forward to reading about your suggestions on what I can do to improve my creating-methods method.  I will also talk with my mentor about it and reach out to my peers.
+  def pm_closing_time(hours)
+    (closing_time(hours).to_i - 12).to_s + ":00PM"
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class Restaurant
+#   attr_reader :opening_time,
+#               :name,
+#               :dishes
+#
+#   def initialize(open, name)
+#     @opening_time = open
+#     @name = name
+#     @dishes = []
+#   end
+#
+#   def closing_time(length)
+#     (@opening_time.to_i + length).to_s + ":00"
+#   end
+#
+#   def add_dish(dish)
+#     @dishes << dish
+#   end
+#
+#   def open_for_lunch?
+#     @opening_time.to_i < 12
+#   end
+#
+#   def menu_dish_names
+#     capilalized =[]
+#     @dishes.each do |dish|
+#       capilalized << dish.upcase
+#     end
+#     capilalized
+#   end
+#
+#   def announce_closing_time(hours)
+#     military_time = closing_time(hours)
+#     if military_time.to_i >= 12
+#       time = military_time.to_i - 12
+#         formatted_time = time.to_s + ":00"
+#           "#{name} will be closing at #{formatted_time}PM"
+#     else
+#       "#{name} will be closing at #{military_time}AM"
+#     end
+#   end
+# end
